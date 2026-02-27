@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SkylineSound</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=STIX+Two+Text:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <div class="header-row">
+        <h1 class="title">SkylineSound</h1>
+        <span class="header-eq">f(x) = &int; h(x) &middot; sin(&omega;x) dx</span>
+      </div>
+      <p class="header-sub">Landscape &rarr; Silhouette &rarr; Sound &emsp;|&emsp; n &isin; &#8469;, &omega; &isin; &#8477;</p>
+    </header>
+
+    <main class="main">
+      <!-- Scene nav ABOVE canvas -->
+      <nav class="nav-row scene-nav">
+        <span class="fn-label">S(x) =</span>
+        <button class="nav-btn active" data-sample="city">Downtown Seattle</button>
+        <button class="nav-btn" data-sample="mountains">Mount Rainier</button>
+        <button class="nav-btn" data-sample="forest">Lake Sammamish</button>
+        <button class="nav-btn upload-trigger" id="uploadBtn">Upload</button>
+        <input type="file" id="fileInput" accept="image/*" hidden>
+      </nav>
+
+      <div class="canvas-wrapper">
+        <div class="canvas-container" id="canvasContainer">
+          <canvas id="imageCanvas"></canvas>
+          <canvas id="overlayCanvas"></canvas>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="controls">
+        <div class="transport">
+          <button class="play-toggle" id="playToggle" aria-label="Play">
+            <svg class="play-icon" viewBox="0 0 24 24" width="20" height="20">
+              <polygon points="7,3 21,12 7,21" fill="currentColor"/>
+            </svg>
+            <svg class="pause-icon" viewBox="0 0 24 24" width="20" height="20">
+              <rect x="5" y="3" width="4" height="18" fill="currentColor"/>
+              <rect x="15" y="3" width="4" height="18" fill="currentColor"/>
+            </svg>
+          </button>
+        </div>
+
+        <div class="sliders">
+          <div class="slider-row">
+            <label class="slider-label">T(n) =</label>
+            <div class="slider-group-inline">
+              <button class="nav-btn inst-btn active" data-instrument="pad">Pad</button>
+              <button class="nav-btn inst-btn" data-instrument="marimba">Marimba</button>
+              <button class="nav-btn inst-btn" data-instrument="bowl">Bowl</button>
+              <button class="nav-btn inst-btn" data-instrument="glass">Glass</button>
+              <button class="nav-btn inst-btn" data-instrument="drone">Drone</button>
+            </div>
+          </div>
+          <div class="slider-row">
+            <label class="slider-label">&alpha; (vol)</label>
+            <input type="range" id="volumeSlider" min="0" max="100" value="50" class="slider">
+            <span class="slider-val" id="volumeValue">50</span>
+          </div>
+          <div class="slider-row">
+            <label class="slider-label">&tau; (tempo)</label>
+            <input type="range" id="tempoSlider" min="30" max="240" value="180" class="slider">
+            <span class="slider-val" id="tempoValue">180</span>
+          </div>
+          <div class="slider-row">
+            <label class="slider-label">&rho; (density)</label>
+            <input type="range" id="densitySlider" min="16" max="96" value="48" step="4" class="slider">
+            <span class="slider-val" id="densityValue">48</span>
+          </div>
+          <div class="slider-row">
+            <label class="slider-label">&phi; (scale)</label>
+            <select id="scaleSelect" class="styled-select">
+              <option value="pentatonic">Pentatonic</option>
+              <option value="major">Major</option>
+              <option value="minor">Minor</option>
+              <option value="blues">Blues</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+  <script src="js/samples.js"></script>
+  <script src="js/silhouette.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Claude_Preview__preview_start",
+      "Bash(curl -L -o /Users/katarina/experiments/skylinemusic/assets/photos/city.jpg \"https://images.unsplash.com/photo-1514565131-fce0801e5785?w=1200&q=80&fit=crop\")",
+      "Bash(curl -L -o /Users/katarina/experiments/skylinemusic/assets/photos/mountains.jpg \"https://images.unsplash.com/photo-1464278533981-50106e6176b1?w=1200&q=80&fit=crop\")",
+      "Bash(curl -L -o /Users/katarina/experiments/skylinemusic/assets/photos/forest.jpg \"https://images.unsplash.com/photo-1505765050516-f72dcac9c60e?w=1200&q=80&fit=crop\")",
+      "Bash(file /Users/katarina/experiments/skylinemusic/assets/photos/*.jpg)",
+      "Bash(curl -sL -o /tmp/test_mountains.jpg \"https://images.unsplash.com/photo-1439853949127-fa647821eba0?w=1200&q=80&fit=crop\")",
+      "Bash(curl -sL -o /tmp/test_forest.jpg \"https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=1200&q=80&fit=crop\")",
+      "Bash(curl -sL -o /tmp/city_reflect.jpg \"https://images.unsplash.com/photo-1507400492013-162706c8c05e?w=1200&h=675&fit=crop&crop=center\")",
+      "Bash(curl -sL -o /tmp/city2.jpg \"https://images.unsplash.com/photo-1534430480872-3498386e7856?w=1200&h=675&fit=crop\")",
+      "Bash(curl -sL -o /tmp/mtn1.jpg \"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=675&fit=crop\")",
+      "Bash(curl -sL -o /tmp/forest1.jpg \"https://images.unsplash.com/photo-1511497584788-876760111969?w=1200&h=675&fit=crop\")"
+    ]
+  }
+}
