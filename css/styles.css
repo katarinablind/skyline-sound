@@ -1,4 +1,4 @@
-/* ─── Reset ────────────────────────────────────────────── */
+/* ═══ Reset ══════════════════════════════════════════════ */
 
 *, *::before, *::after {
   margin: 0;
@@ -6,96 +6,435 @@
   box-sizing: border-box;
 }
 
-/* ─── Variables ────────────────────────────────────────── */
+/* ═══ Tokens ═════════════════════════════════════════════ */
 
 :root {
-  --bg: #ffffff;
-  --bg-adaptive: #ffffff;
-  --text: #2c2c2c;
-  --text-dim: rgba(44, 44, 44, 0.40);
-  --text-hover: rgba(44, 44, 44, 0.70);
-  --border: rgba(44, 44, 44, 0.12);
-  --border-active: rgba(44, 44, 44, 0.45);
-  --serif: 'Cormorant Garamond', 'Garamond', 'Georgia', serif;
-  --math: 'STIX Two Text', 'Cambria Math', 'Times New Roman', serif;
+  /* Soft blue-gray canvas — not quite white, no beige */
+  --bg: #EEF1F5;
+  --bg-elev: #FFFFFF;
+  --ink: #1B2230;                           /* near-black, slight blue */
+  --ink-2: #4B5565;
+  --ink-3: rgba(27, 34, 48, 0.52);
+  --ink-4: rgba(27, 34, 48, 0.22);
+  --line: rgba(27, 34, 48, 0.08);
+  --line-2: rgba(27, 34, 48, 0.14);
+  /* Glowing coral-orange accent (poppy reference) */
+  --accent: #FF7A4D;
+  --accent-bright: #FF9670;                 /* for gradient highlights */
+  --accent-soft: rgba(255, 122, 77, 0.12);
+  --accent-glow: 0 0 12px rgba(255, 122, 77, 0.42);
+  --accent-glow-strong: 0 0 18px rgba(255, 122, 77, 0.55);
+  --radius-sm: 6px;
+  --radius: 14px;
+  --radius-lg: 22px;
+  --shadow-sm: 0 1px 2px rgba(27, 34, 48, 0.04);
+  --shadow: 0 2px 16px rgba(27, 34, 48, 0.06), 0 1px 3px rgba(27, 34, 48, 0.04);
+  --shadow-lg: 0 20px 60px rgba(27, 34, 48, 0.10), 0 4px 12px rgba(27, 34, 48, 0.06);
+  --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --mono: 'IBM Plex Mono', 'Menlo', 'Consolas', monospace;
+  --math: 'STIX Two Text', 'Cambria Math', serif;
+  --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur: 400ms;
 }
 
-/* ─── Base ─────────────────────────────────────────────── */
+/* ═══ Base ══════════════════════════════════════════════ */
 
-html {
-  font-size: 16px;
+html, body {
+  height: 100%;
 }
 
 body {
   background: var(--bg);
-  color: var(--text);
-  font-family: var(--serif);
-  font-weight: 300;
-  min-height: 100vh;
+  color: var(--ink);
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
 }
 
-/* ─── App Layout ───────────────────────────────────────── */
+button {
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
 
 .app {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 36px 40px 60px;
+  height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
 }
 
-/* ─── Header ───────────────────────────────────────────── */
+/* ═══ Header ════════════════════════════════════════════ */
 
 .header {
-  margin-bottom: 28px;
-}
-
-.header-row {
   display: flex;
-  align-items: baseline;
-  gap: 24px;
-  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px;
+  border-bottom: 1px solid var(--line);
+  background: var(--bg);
+  z-index: 2;
 }
 
-.title {
-  font-family: var(--math);
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.brand-mark {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent), var(--accent-bright));
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.06), var(--accent-glow);
+}
+
+.brand-name {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 14px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.header-meta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.meta-label {
+  font-family: var(--mono);
   font-weight: 400;
-  font-size: 1.1rem;
-  letter-spacing: 0.08em;
-  color: var(--text);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--ink-3);
+  text-transform: uppercase;
 }
 
-.header-eq {
-  font-family: var(--math);
-  font-style: italic;
-  font-size: 0.82rem;
-  color: var(--text-dim);
-  letter-spacing: 0.02em;
+.btn-ghost {
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 12px;
+  color: var(--ink-2);
+  padding: 6px 14px;
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  transition: all 0.2s var(--ease);
 }
 
-.header-sub {
-  font-family: var(--math);
-  font-size: 0.68rem;
-  color: rgba(44, 44, 44, 0.28);
-  letter-spacing: 0.04em;
-  margin-top: 6px;
+.btn-ghost:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  box-shadow: var(--accent-glow);
 }
 
-/* ─── Canvas ───────────────────────────────────────────── */
+/* ═══ Main ═══════════════════════════════════════════════ */
 
-.canvas-wrapper {
-  margin-bottom: 0;
+.main {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
 
-.canvas-container {
+/* ═══ Hero (empty state) ════════════════════════════════ */
+
+.hero {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.hero-inner {
+  max-width: 560px;
+  width: 100%;
+  text-align: center;
+  animation: fadeUp 600ms var(--ease-out) both;
+}
+
+.hero-title {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+
+.hero-sub {
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ink-2);
+  margin-bottom: 36px;
+  max-width: 440px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Preselected sample thumbnails — lead the upload flow */
+.hero-samples-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.sample-tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 6px;
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s var(--ease);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.sample-tile:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  box-shadow: var(--shadow), var(--accent-glow);
+}
+
+.sample-tile-thumb {
   position: relative;
   width: 100%;
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 16 / 10;
+  border-radius: calc(var(--radius) - 6px);
   overflow: hidden;
-  border: 1px solid var(--border);
+  background: var(--bg);
 }
 
-.canvas-container canvas {
+.sample-tile-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s var(--ease);
+}
+
+.sample-tile:hover .sample-tile-thumb img {
+  transform: scale(1.03);
+}
+
+.sample-tile-name {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 12px;
+  color: var(--ink);
+  padding: 0 4px 4px;
+  letter-spacing: -0.005em;
+}
+
+.hero-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 4px 0 14px;
+}
+
+.hero-divider::before,
+.hero-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--line-2);
+}
+
+.hero-divider span {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--ink-3);
+  text-transform: uppercase;
+}
+
+/* Dropzone — now the secondary flow */
+.dropzone {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 18px 20px;
+  background: var(--bg-elev);
+  border: 1.5px dashed var(--line-2);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.25s var(--ease);
+  box-shadow: var(--shadow-sm);
+}
+
+.dropzone:hover,
+.dropzone.is-dragover {
+  border-color: var(--accent);
+  background: var(--bg-elev);
+  box-shadow: var(--shadow), var(--accent-glow);
+  transform: translateY(-1px);
+}
+
+.dropzone-icon {
+  color: var(--ink-3);
+  transition: color 0.25s var(--ease);
+  display: flex;
+  align-items: center;
+}
+
+.dropzone:hover .dropzone-icon {
+  color: var(--accent);
+}
+
+.dropzone-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-items: flex-start;
+}
+
+.dropzone-text {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 13px;
+  color: var(--ink);
+}
+
+.dropzone-link {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+.dropzone-hint {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--ink-3);
+  text-transform: uppercase;
+}
+
+/* ═══ Stage (analysis + play state) ═════════════════════ */
+
+.stage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 14px 32px 14px;
+  gap: 10px;
+  min-height: 0;
+  overflow: hidden;
+  animation: fadeUp 500ms var(--ease-out) both;
+}
+
+.stage-grid {
+  display: grid;
+  grid-template-columns: 1fr 260px;
+  gap: 16px;
+  flex: 1;
+  min-height: 0;
+}
+
+/* Image canvas card */
+.stage-canvas {
+  position: relative;
+  background: var(--bg-elev);
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* Shared label styling across canvas overlay + score + chord-strip.
+   One consistent system: small uppercase mono, key in --ink, desc in --ink-3,
+   separated by a faint divider. Reads like a legend, not a heading. */
+.canvas-label {
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  pointer-events: none;
+}
+
+/* Pill backdrop only when the label sits over the photograph — the score
+   card is already its own surface, so the label sits flat there. */
+.stage-canvas .canvas-label {
+  background: rgba(255,255,255,0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+.canvas-label-key,
+.chord-strip-key {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+
+.canvas-label-desc,
+.chord-strip-desc {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  position: relative;
+  padding-left: 10px;
+}
+.canvas-label-desc::before,
+.chord-strip-desc::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 1px;
+  height: 9px;
+  background: var(--line);
+  transform: translateY(-50%);
+}
+
+.canvas-wrap {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.canvas-wrap canvas {
   position: absolute;
   top: 0;
   left: 0;
@@ -103,152 +442,391 @@ body {
   height: 100%;
 }
 
-#overlayCanvas {
-  pointer-events: auto;
+/* Analysis sweep bar — vertical line that moves left→right */
+.sweep-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, var(--accent) 20%, var(--accent) 80%, transparent);
+  box-shadow: 0 0 24px var(--accent);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 4;
+  transition: left 1600ms var(--ease-out), opacity 300ms var(--ease);
 }
 
-/* ─── Dividers ─────────────────────────────────────────── */
-
-.divider {
-  height: 1px;
-  background: var(--border);
-  margin: 20px 0;
+body[data-phase="analyzing"] .sweep-bar {
+  opacity: 1;
+  left: calc(100% - 2px);
 }
 
-/* ─── Navigation Rows ──────────────────────────────────── */
+/* ═══ Readout ═══════════════════════════════════════════ */
 
-.nav-row {
+.readout {
+  background: var(--bg-elev);
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  padding: 14px 16px;
   display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 12px;
+  /* No overflow clipping — the readout should grow to its content rather
+     than silently cut off SCALE or NOTES at the bottom edge. */
+  min-height: 0;
+}
+
+.readout-section {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.readout-row {
+  flex-direction: row;
+  gap: 16px;
+}
+
+.readout-row > div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Readout label pair — uses the same two-tone uppercase-mono system as
+   the canvas / score / strings labels, so every strip label on the page
+   reads from the same typographic family (key in --ink, desc in --ink-3,
+   1px divider between). */
+.readout-head {
+  display: flex;
   align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  row-gap: 2px;
+  margin-bottom: 2px;
 }
 
-.scene-nav {
-  margin-bottom: 14px;
-}
-
-.fn-label {
-  font-family: var(--math);
-  font-style: italic;
-  font-size: 0.82rem;
-  color: var(--text-dim);
-  letter-spacing: 0.02em;
-  user-select: none;
-  flex-shrink: 0;
-}
-
-.nav-btn {
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid transparent;
-  color: var(--text-dim);
-  font-family: var(--math);
-  font-weight: 400;
-  font-size: 0.76rem;
-  letter-spacing: 0.04em;
-  padding: 4px 0;
-  cursor: pointer;
-  transition: color 0.3s ease, border-color 0.3s ease;
+.readout-label {
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--ink);
+  text-transform: uppercase;
   line-height: 1;
 }
 
-.nav-btn:hover {
-  color: var(--text-hover);
+.readout-caption {
+  font-family: var(--mono);
+  font-weight: 400;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  line-height: 1;
 }
 
-.nav-btn.active {
-  color: var(--text);
-  border-bottom-color: var(--border-active);
+.readout-value {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  line-height: 1.2;
+  /* Let long values (especially SCALE — e.g. "A♯ Mixolydian (Dominant)")
+     wrap onto multiple lines instead of getting clipped. The readout grows
+     to fit; nothing is silently truncated. */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  padding-bottom: 1px;
 }
 
-/* ─── Controls ─────────────────────────────────────────── */
+/* SCALE is the most likely value to be long (mode + parenthetical); give it
+   explicit headroom for up to 4 lines (~1 normal + 3 extra) without ever
+   being clipped by the panel's bottom edge. */
+#scaleValue {
+  max-height: calc(4 * 1.2em);
+  white-space: normal;
+}
 
-.controls {
+.swatch-row {
   display: flex;
-  align-items: flex-start;
-  gap: 32px;
-  flex-wrap: wrap;
+  gap: 4px;
+  height: 28px;
 }
 
-/* ─── Play / Pause Toggle ──────────────────────────────── */
+.swatch {
+  flex: 1;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line);
+  opacity: 0;
+  transform: scale(0.7);
+  transition: opacity 400ms var(--ease-out), transform 400ms var(--ease-out);
+}
+
+.swatch.is-in {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ═══ Score ═════════════════════════════════════════════ */
+
+.score-wrap {
+  position: relative;
+  flex-shrink: 0;
+  background: var(--bg-elev);
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  padding: 24px 0 0;
+  height: 98px;
+  overflow: hidden;
+}
+
+.score-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.score-container canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ═══ Chord strip (strings bed layer) ═══════════════════ */
+
+.chord-strip-wrap {
+  position: relative;
+  flex-shrink: 0;
+  background: var(--bg-elev);
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  padding: 8px 14px 8px;
+  margin-top: -6px;                  /* nest visually under the score */
+}
+
+.chord-strip-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 5px;
+  padding-left: 2px;
+}
+
+.chord-strip {
+  display: flex;
+  gap: 3px;
+  height: 28px;
+}
+
+.chord-cell {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--line);
+  border-radius: 5px;
+  transition: background 0.3s var(--ease), box-shadow 0.3s var(--ease), transform 0.2s var(--ease);
+  min-width: 30px;
+  padding: 0 4px;
+  overflow: hidden;
+}
+
+/* Inner wrapper groups the chord name + roman numeral as one inline unit,
+   so `justify-content: center` on the cell centers the PAIR (not each
+   individually) — the chord name and degree feel like a single glyph cluster. */
+.chord-cell-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* Primary label: chord name (F♯m). Inter for clarity at small sizes. */
+.chord-cell-name {
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: 0.01em;
+  transition: color 0.3s var(--ease);
+}
+
+/* Secondary label: roman numeral (IV). Muted mono right beside the name. */
+.chord-cell-deg {
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--ink-3);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: color 0.3s var(--ease);
+  /* Optical nudge: mono glyphs at 10px sit a touch high when centered
+     alongside 12px Inter — this pulls them back onto the shared midline. */
+  transform: translateY(0.5px);
+}
+
+.chord-cell.is-active {
+  background: var(--accent);
+  box-shadow: var(--accent-glow);
+  transform: translateY(-1px);
+}
+
+.chord-cell.is-active .chord-cell-name,
+.chord-cell.is-active .chord-cell-deg {
+  color: #fff;
+}
+
+/* ═══ Score label legend (orange dot = randomization) ═══ */
+
+.canvas-label-legend {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  position: relative;
+  padding-left: 10px;
+}
+
+.canvas-label-legend::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 1px;
+  height: 9px;
+  background: var(--line);
+  transform: translateY(-50%);
+}
+
+.canvas-label-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 6px rgba(255, 122, 77, 0.55);
+}
+
+/* ═══ Spectrum analyzer ═════════════════════════════════ */
+
+.spectrum-wrap {
+  position: relative;
+  flex-shrink: 0;
+  background: var(--bg-elev);
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  padding: 8px 14px 8px;
+  margin-top: -6px;
+}
+
+.spectrum-canvas {
+  display: block;
+  width: 100%;
+  height: 42px;
+  background: transparent;
+}
+
+/* ═══ Transport ═════════════════════════════════════════ */
 
 .transport {
   display: flex;
   align-items: center;
-  padding-top: 4px;
+  gap: 20px;
+  padding: 10px 32px;
+  border-top: 1px solid var(--line);
+  background: var(--bg);
+  animation: fadeUp 400ms var(--ease-out) both;
 }
 
 .play-toggle {
-  width: 52px;
-  height: 52px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  border: 1.5px solid var(--text);
-  background: transparent;
-  color: var(--text);
+  background: var(--ink);
+  color: var(--bg-elev);
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+  flex-shrink: 0;
+  transition: all 0.2s var(--ease);
 }
 
 .play-toggle:hover {
-  background: rgba(44, 44, 44, 0.06);
+  background: var(--accent);
+  transform: scale(1.03);
 }
 
-.play-toggle.is-playing {
-  color: var(--text);
-  border-color: var(--text);
-  background: rgba(44, 44, 44, 0.06);
+.play-toggle:active {
+  transform: scale(0.97);
 }
 
 .play-toggle .pause-icon { display: none; }
 .play-toggle.is-playing .play-icon { display: none; }
 .play-toggle.is-playing .pause-icon { display: block; }
+.play-toggle.is-playing { background: var(--accent); }
 
-/* ─── Sliders ──────────────────────────────────────────── */
-
-.sliders {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  min-width: 260px;
+.transport-meta {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  min-width: 90px;
 }
 
-.slider-row {
+.transport-controls {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 24px;
+  margin-left: auto;
 }
 
-.slider-group-inline {
+.ctrl {
   display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
   align-items: center;
+  gap: 10px;
 }
 
-.slider-label {
-  font-family: var(--math);
-  font-style: italic;
+.ctrl label {
+  font-family: var(--mono);
   font-weight: 400;
-  font-size: 0.72rem;
-  letter-spacing: 0.04em;
-  color: var(--text-dim);
-  width: 72px;
-  flex-shrink: 0;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--ink-3);
+  text-transform: uppercase;
+  user-select: none;
+  cursor: pointer;
 }
+
+.ctrl-toggle { gap: 8px; }
+
+/* ═══ Sliders ═══════════════════════════════════════════ */
 
 .slider {
   -webkit-appearance: none;
   appearance: none;
-  flex: 1;
-  height: 1px;
-  background: var(--border-active);
+  width: 90px;
+  height: 2px;
+  background: var(--line-2);
   outline: none;
   cursor: pointer;
+  border-radius: 1px;
 }
 
 .slider::-webkit-slider-thumb {
@@ -256,105 +834,179 @@ body {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: var(--text-dim);
-  border: none;
+  background: var(--ink);
   cursor: pointer;
-  transition: background 0.3s ease;
+  border: none;
+  transition: background 0.2s var(--ease), transform 0.15s var(--ease);
 }
 
 .slider::-webkit-slider-thumb:hover {
-  background: var(--text);
+  background: var(--accent);
+  transform: scale(1.2);
 }
 
 .slider::-moz-range-thumb {
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: var(--text-dim);
+  background: var(--ink);
   border: none;
   cursor: pointer;
 }
 
 .slider::-moz-range-track {
-  height: 1px;
-  background: var(--border-active);
+  height: 2px;
+  background: var(--line-2);
   border: none;
 }
 
-.slider-val {
-  font-family: var(--math);
-  font-weight: 400;
-  font-size: 0.72rem;
-  letter-spacing: 0.04em;
-  color: var(--text-dim);
-  width: 32px;
-  text-align: right;
-}
+/* ═══ Toggle ═══════════════════════════════════════════ */
 
-/* ─── Select ───────────────────────────────────────────── */
-
-.styled-select {
-  -webkit-appearance: none;
-  appearance: none;
-  background: transparent;
-  border: 1px solid var(--border);
-  color: var(--text-dim);
-  font-family: var(--math);
-  font-weight: 400;
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
-  padding: 6px 28px 6px 10px;
+.toggle {
+  position: relative;
+  display: inline-block;
   cursor: pointer;
-  outline: none;
-  transition: color 0.3s ease, border-color 0.3s ease;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5' viewBox='0 0 8 5'%3E%3Cpath d='M0 0l4 5 4-5z' fill='rgba(44,44,44,0.25)'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 8px center;
 }
 
-.styled-select:hover,
-.styled-select:focus {
-  color: var(--text-hover);
-  border-color: var(--border-active);
+.toggle input { display: none; }
+
+.toggle-track {
+  display: block;
+  width: 28px;
+  height: 14px;
+  border-radius: 7px;
+  background: var(--line-2);
+  transition: background 0.2s var(--ease);
 }
 
-.styled-select option {
-  background: #ffffff;
-  color: var(--text);
+.toggle-track::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--bg-elev);
+  transition: transform 0.2s var(--ease);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
 
-/* ─── Instrument buttons inline ────────────────────────── */
-
-.inst-btn {
-  font-size: 0.72rem;
-  padding: 3px 0;
+.toggle input:checked + .toggle-track {
+  background: var(--ink);
 }
 
-/* ─── Responsive ───────────────────────────────────────── */
+.toggle input:checked + .toggle-track::after {
+  transform: translateX(14px);
+}
 
-@media (max-width: 768px) {
-  .app {
-    padding: 24px 16px 44px;
+/* ═══ Credit line ═══════════════════════════════════════ */
+/* Same two-tone uppercase-mono system as the canvas/score/strings labels,
+   with a 1px divider between "Made with ♥ in Seattle" (ink) and the
+   LinkedIn-linked "by Katarina Blind" (ink-3, hover → accent). */
+
+.credit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 32px 14px;
+  user-select: none;
+}
+
+.credit-key {
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink);
+  line-height: 1;
+}
+
+.credit-desc {
+  font-family: var(--mono);
+  font-weight: 400;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  line-height: 1;
+  text-decoration: none;
+  position: relative;
+  padding-left: 10px;
+  transition: color 0.2s var(--ease);
+}
+
+.credit-desc::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 1px;
+  height: 9px;
+  background: var(--line);
+  transform: translateY(-50%);
+}
+
+.credit-desc:hover {
+  color: var(--accent);
+}
+
+.credit-heart {
+  color: var(--accent);
+  font-size: 10px;
+  margin: 0 1px;
+  display: inline-block;
+  transform: translateY(-0.5px);
+  text-shadow: 0 0 6px rgba(255, 122, 77, 0.45);
+}
+
+/* ═══ Phase-based visibility ════════════════════════════ */
+
+body[data-phase="empty"] .stage,
+body[data-phase="empty"] .transport {
+  display: none !important;
+}
+
+body:not([data-phase="empty"]) .hero {
+  display: none !important;
+}
+
+/* ═══ Animations ════════════════════════════════════════ */
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══ Responsive ════════════════════════════════════════ */
+
+@media (max-width: 960px) {
+  .stage-grid {
+    grid-template-columns: 1fr;
   }
-
-  .title {
-    font-size: 0.95rem;
-  }
-
-  .header-eq {
-    display: none;
-  }
-
-  .nav-row {
-    gap: 12px;
-  }
-
-  .divider {
-    margin: 16px 0;
-  }
-
-  .controls {
-    flex-direction: column;
+  .readout {
+    order: -1;
+    flex-direction: row;
+    padding: 14px 16px;
     gap: 20px;
   }
+  .readout-section { flex: 1; }
+  .swatch-row { height: 22px; }
+  .stage {
+    padding: 14px 20px 18px;
+  }
+  .hero-title { font-size: 28px; }
+  .header { padding: 16px 20px; }
+  .transport {
+    padding: 10px 16px;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .transport-controls {
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .slider { width: 70px; }
 }

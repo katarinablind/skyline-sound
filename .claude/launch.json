@@ -3,9 +3,9 @@
   "configurations": [
     {
       "name": "dev",
-      "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "8080"],
-      "port": 8080
+      "runtimeExecutable": "node",
+      "runtimeArgs": [".claude/serve.js"],
+      "autoPort": true
     }
   ]
 }

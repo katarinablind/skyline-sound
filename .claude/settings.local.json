@@ -11,7 +11,22 @@
       "Bash(curl -sL -o /tmp/city_reflect.jpg \"https://images.unsplash.com/photo-1507400492013-162706c8c05e?w=1200&h=675&fit=crop&crop=center\")",
       "Bash(curl -sL -o /tmp/city2.jpg \"https://images.unsplash.com/photo-1534430480872-3498386e7856?w=1200&h=675&fit=crop\")",
       "Bash(curl -sL -o /tmp/mtn1.jpg \"https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=675&fit=crop\")",
-      "Bash(curl -sL -o /tmp/forest1.jpg \"https://images.unsplash.com/photo-1511497584788-876760111969?w=1200&h=675&fit=crop\")"
+      "Bash(curl -sL -o /tmp/forest1.jpg \"https://images.unsplash.com/photo-1511497584788-876760111969?w=1200&h=675&fit=crop\")",
+      "Bash(xargs kill:*)",
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:surikov.github.io)",
+      "WebFetch(domain:loophole-letters.vercel.app)",
+      "WebFetch(domain:tonejs.github.io)",
+      "WebFetch(domain:nbrosowsky.github.io)",
+      "Bash(file *.mp3)",
+      "Bash(curl -sI http://localhost:3000/)",
+      "Bash(curl -sI http://localhost:3000/index.html)",
+      "Bash(npm ls:*)",
+      "Bash(/usr/bin/python3 --version)",
+      "Bash(node -e \"const http=require\\('http'\\),fs=require\\('fs'\\),path=require\\('path'\\);const mime={'.html':'text/html','.js':'application/javascript','.css':'text/css','.json':'application/json','.mp3':'audio/mpeg','.jpg':'image/jpeg','.png':'image/png','.svg':'image/svg+xml'};http.createServer\\(\\(q,s\\)=>{let f='.'+q.url;if\\(f==='./'\\) f='./index.html';fs.readFile\\(f,\\(e,d\\)=>{if\\(e\\){s.writeHead\\(404\\);s.end\\(\\);return}s.writeHead\\(200,{'Content-Type':mime[path.extname\\(f\\)]||'text/plain'}\\);s.end\\(d\\)}\\)}\\).listen\\(3001,\\(\\)=>console.log\\('ok'\\)\\)\")",
+      "Bash(disown sleep:*)",
+      "Bash(xargs -r kill)"
     ]
   }
 }

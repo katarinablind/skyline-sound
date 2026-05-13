@@ -1,0 +1,45 @@
+/* ─── Dark Theme Overrides ─────────────────────────────── */
+
+[data-theme="dark"] {
+  --bg: #0F1218;                             /* deep blue-black */
+  --bg-elev: #181C25;
+  --ink: #F3F5F9;
+  --ink-2: #C9CFDA;
+  --ink-3: rgba(243, 245, 249, 0.55);
+  --ink-4: rgba(243, 245, 249, 0.22);
+  --line: rgba(243, 245, 249, 0.10);
+  --line-2: rgba(243, 245, 249, 0.18);
+  --accent: #FF9670;                         /* slightly peachier on dark */
+  --accent-bright: #FFB391;
+  --accent-soft: rgba(255, 150, 112, 0.14);
+  --accent-glow: 0 0 14px rgba(255, 150, 112, 0.48);
+  --accent-glow-strong: 0 0 20px rgba(255, 150, 112, 0.60);
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+  --shadow: 0 2px 16px rgba(0,0,0,0.35), 0 1px 3px rgba(0,0,0,0.25);
+  --shadow-lg: 0 20px 60px rgba(0,0,0,0.5), 0 4px 12px rgba(0,0,0,0.3);
+}
+
+[data-theme="dark"] .stage-canvas .canvas-label {
+  background: rgba(18, 20, 25, 0.72);
+  border-color: rgba(255,255,255,0.05);
+}
+
+/* Peach-tinted glow on the legend dot matches the dark-theme accent. */
+[data-theme="dark"] .canvas-label-dot {
+  box-shadow: 0 0 6px rgba(255, 150, 112, 0.55);
+}
+
+[data-theme="dark"] .brand-mark {
+  background: linear-gradient(135deg, var(--accent), var(--accent-bright));
+}
+
+[data-theme="dark"] .play-toggle {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+[data-theme="dark"] .play-toggle:hover,
+[data-theme="dark"] .play-toggle.is-playing {
+  background: var(--accent);
+  color: var(--ink);
+}
